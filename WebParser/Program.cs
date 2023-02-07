@@ -15,6 +15,8 @@ namespace WebParser.Program
 
         public static void Main(string[] args)
         {
+            //Creating parser worker whe we give what exactly value do we wanna get from ilcatsModelParser and give parser instance ilcatsModelParser
+            //that mean what page to parse
             parserModel = new ParserWorker<List<Model>>(new ilcatsModelParser(new ilcatsParserDbContext()), new ilcatsSettings());
             parserModel.OnNewData += Parser_OnNewData;
             parserModel.Start();
@@ -28,6 +30,10 @@ namespace WebParser.Program
 
             parserModel.Start();
         }
+        /// <summary>
+        /// For each event we have parsing classes that are derived from IParse, and for each we cave different logic 
+        /// </summary>
+
         private static void Parser_OnNewData(object arg1, List<PartsSubGroup> arg2)
         {
             foreach (var item in arg2)
