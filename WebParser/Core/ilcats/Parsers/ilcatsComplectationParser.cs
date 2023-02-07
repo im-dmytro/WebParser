@@ -54,12 +54,18 @@ namespace WebParser.Core.ilcats.Parsers
 
                 for (int i = 0; i < item.Value.Count(); i++)
                 {
-                    string settedValue = $"'{ item.Value.ElementAt(i).TextContent}'";
-                    if (settedValue.Length==2) settedValue = null;
+                    string settedValue = $"'{item.Value.ElementAt(i).TextContent}'";
+                    if (settedValue.Length == 2) settedValue = null;
                     string whereValue = dic.First().Value.ElementAt(i).TextContent;
-                    string queryUpdate = $"UPDATE {tableName} SET {columnName} = {settedValue} WHERE Name = '{whereValue}';";
+                    string queryUpdate = $"UPDATE {tableName} SET {columnName} = {settedValue}  WHERE Name = '{whereValue}';";
+                    try
+                    {
+                        context.Database.ExecuteSqlRaw(queryUpdate);
 
-                    context.Database.ExecuteSqlRaw(queryUpdate);
+                    }
+                    catch (Exception)
+                    {
+                    }
                 }
             }
 
